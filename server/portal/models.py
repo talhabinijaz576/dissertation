@@ -47,44 +47,56 @@ class Camera(models.Model):
 
 
     def on_connect(self):
-        print("on_connect")
-        self.send_connection_message(True)
-        self.is_connected = True
-        self.save()
-        print("saved")
+        try:
+            print("on_connect")
+            self.send_connection_message(True)
+            self.is_connected = True
+            self.save()
+            print("saved")
+        except:
+            pass
 
 
     def on_disconnect(self):
-        print("on_disconnect")
-        self.send_connection_message(False)
-        self.is_connected = False
-        self.save()
-        print("saved")
+        try:
+            print("on_disconnect")
+            self.send_connection_message(False)
+            self.is_connected = False
+            self.save()
+            print("saved")
+        except:
+            pass
 
 
     def send_connection_message(self, is_connected):
         
-        layer = get_channel_layer()
-        message = {"type": "message",
-                    "event": "connection_update",
-                    "status": is_connected,
-                    "camera_name": self.name,
-                    "camera_id": str(self.id)}
+        try:
+            layer = get_channel_layer()
+            message = {"type": "message",
+                        "event": "connection_update",
+                        "status": is_connected,
+                        "camera_name": self.name,
+                        "camera_id": str(self.id)}
 
-        group_name = "portal_" + self.account_owner.username
-        print(f"Sending connection message ({is_connected}) to {group_name}")
-        async_to_sync(layer.group_send)(group_name, message)
+            group_name = "portal_" + self.account_owner.username
+            print(f"Sending connection message ({is_connected}) to {group_name}")
+            async_to_sync(layer.group_send)(group_name, message)
+        except:
+            pass
 
 
     def sync(self):
         
-        layer = get_channel_layer()
-        message = {"type": "message",
-                    "event": "sync"}
+        try:
+            layer = get_channel_layer()
+            message = {"type": "message",
+                        "event": "sync"}
 
-        group_name = "device_" + self.token
-        print(f"Sending resync message to {group_name}")
-        async_to_sync(layer.group_send)(group_name, message)
+            group_name = "device_" + self.token
+            print(f"Sending resync message to {group_name}")
+            async_to_sync(layer.group_send)(group_name, message)
+        except:
+            pass
 
 
     def check_access(self, employee):
@@ -121,15 +133,17 @@ class Camera(models.Model):
                                          account_owner = self.account_owner)
 
         if(not detected or not has_access):
+            try:
+                layer = get_channel_layer()
+                message = {"type": "message",
+                            "event": "alert",
+                            "alert": f"{message} at {self.room.name}" }
 
-            layer = get_channel_layer()
-            message = {"type": "message",
-                        "event": "alert",
-                        "alert": f"{message} at {self.room.name}" }
-
-            group_name = "portal_" + self.account_owner.username
-            print(f"Sending alert ({message}) to {group_name}")
-            async_to_sync(layer.group_send)(group_name, message)
+                group_name = "portal_" + self.account_owner.username
+                print(f"Sending alert ({message}) to {group_name}")
+                async_to_sync(layer.group_send)(group_name, message)
+            except:
+                pass
 
         return event
 
