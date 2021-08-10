@@ -7,7 +7,7 @@ from portal.consumers import PortalConsumer, DesktopConsumer
 from django.conf import settings
 
 
-if(False and settings.IS_LINUX):
+if(settings.IS_LINUX):
 
     application = ProtocolTypeRouter({
         'websocket': #AllowedHostsOriginValidator(

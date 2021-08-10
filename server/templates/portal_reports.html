@@ -22,10 +22,10 @@
           <div class="card-body">
 
             <form  method="POST" class="navbar-form" >  {% csrf_token %}
-              <div class="input-group-search-bar no-border">
+              
 
                 {% if employees.count > 0 %}
-
+                <div class="input-group-search-bar no-border">
                   <table>
                     <tbody>
                       <tr>
@@ -49,7 +49,7 @@
                       </tr>
                     </tbody>
                   </table>
-
+                </div>
                   
      
 
@@ -57,7 +57,7 @@
                 {% else %}
                 <h3>No employees found to run reports</h3>
                 {% endif %}
-              </div>
+
             </form>
 
 
