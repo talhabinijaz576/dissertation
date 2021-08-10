@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from portal.site_views.view_rooms import RoomsView, CamerasView
 from portal.site_views.view_history import HistoryView, ReportsView, AlertsView
 from portal.site_views.view_employees import EmployeesView
+from portal.models import Room, Camera, Employee, Permission, Picture, Event
 from pprint import pprint
 import os
 import zipfile
@@ -43,6 +44,16 @@ def getDefaultContext(request):
 
 
 	return context
+
+
+def ResetAllView(request):
+
+	for model in [Room, Camera, Permission, Picture, Event, Employee]:
+		model.objects.all().delete()
+		
+	response = HttpResponseRedirect("/")
+	return response
+
 
 
 def PortalHomeView(request):

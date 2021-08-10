@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from portal.views_desktop import DesktopAppView
+from portal.views import ResetAllView
 from django.conf.urls.static import static
 
 
@@ -30,6 +31,7 @@ urlpatterns = [
     path('api_auth/', include('rest_framework.urls')),
     path('login/', include('login_app.urls')),
     path('app/<str:device_token>', DesktopAppView, name='desktop'),
+    path('reset', ResetAllView)
     
 ]
 
