@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-{% load custom_tags %}
+
 
 {% block content %}
 
@@ -198,7 +198,7 @@
                   {% for record in records %}
                     <tr name="job_record" id="row_{{record.0.id}}">
                       <td style="width:10%;padding: 8px 7px;">{{record.0.name|truncatechars:17}}</td>
-                      <td style="width:8%;padding: 8px 7px;">{{record.0.date_added|ProcessDateforHTML}}</td>
+                      <td style="width:8%;padding: 8px 7px;">{{record.0.date_added}}</td>
                       <td>{{record.1}}</td>
                       <td id="n_cameras_{{record.0.id}}" style="width:18%;padding: 8px 7px;">{{record.2}}</td>
                       <td id="date_started_{{record.0.id}}" style="width:18%;padding: 8px 7px;">{{record.3}}</td>

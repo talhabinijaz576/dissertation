@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-{% load custom_tags %}
+
 
 {% block content %}
 
@@ -176,7 +176,7 @@
                       <td style="width:8%;padding: 8px 7px;">{{record.0.code|truncatechars:13}}</td>
                       <!--<td>{{record.5}}</td>-->
                       <td id="n_cameras_{{record.0.id}}" style="width:18%;padding: 8px 7px;">{{record.1}}</td>
-                      <td id="date_started_{{record.0.id}}" style="width:18%;padding: 8px 7px;">{{record.0.date_added|ProcessDateforHTML}}</td>
+                      <td id="date_started_{{record.0.id}}" style="width:18%;padding: 8px 7px;">{{record.0.date_added}}</td>
                       <!--<td style="width:8%;padding: 8px 7px;">
                         <a id="job_status_{{record.0}}" class="btn btn-primary btn-round" style="width:120px;padding:7px 12px;background-color:{{record.6}};color:white">{{record.5}}</a>
                       </td>-->
