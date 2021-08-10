@@ -31,6 +31,7 @@ def getDefaultContext(request):
 			   "RAND": settings.RAND}
 
 
+	context["run_websocket"] = not settings.IS_LINUX
 	context["primary_account"] = True
 	
 

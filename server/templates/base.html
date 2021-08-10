@@ -221,7 +221,11 @@
   {% endfor %}
   </script>
 
+
+{% if run_websocket %}
+
 <script>
+
 
 
 var isHttps = window.location["href"][4]=="s";
@@ -230,6 +234,7 @@ if(isHttps){
 }else{
   var ext = "ws://";
 }
+
 
 
 var WebSocketPath = ext + window.location.host + '/ws/portal';
@@ -299,12 +304,11 @@ function onMessage(e) {
 
 
 };  
-
-
-    
   
   
 </script>
+
+{% endif %}
 
 
 </body>
