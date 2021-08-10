@@ -29,7 +29,7 @@ def EmployeesImagesView(request, employee_id):
 	
 	html_template = 'portal_images.html'
 	context = getDefaultContext(request)
-	local_timezone = settings.TIMEZONES[request.user.settings.timezone]
+	local_timezone = ""#settings.TIMEZONES[request.user.settings.timezone]
 
 	employee = Employee.objects.get(id = employee_id, account_owner = request.user)
 

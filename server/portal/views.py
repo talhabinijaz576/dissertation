@@ -48,7 +48,7 @@ def getDefaultContext(request):
 def PortalHomeView(request):
 
 	context = getDefaultContext(request)
-	local_timezone = settings.TIMEZONES[request.user.settings.timezone]
+	local_timezone = ""#settings.TIMEZONES[request.user.settings.timezone]
 	page = request.path.replace("portal", "").replace("/", '')
 
 	#print("Page:",page)
