@@ -1,0 +1,64 @@
+{% load custom_tags %}
+
+{% block scroller %}
+
+<div style="margin-left: auto; margin-right: auto;max-width: 24%;">
+	{% if scroller.has_other_pages %}
+	    <ul class="pagination" style="margin-bottom:10px">
+
+	     	<button type="submit" class="btn btn-white btn-square btn-just-icon btn-sm">
+	          	{% if scroller.has_previous %}
+	            	<li><a href="?page=1">&laquo;</a></li>
+	          	{% else %}
+	            	<li class="disabled"><span>&laquo;</span></li>
+	          	{% endif %}
+			</button>
+
+			<button type="submit" class="btn btn-white btn-square btn-just-icon btn-sm">
+	          	{% if scroller.has_previous %}
+	            	<li><a href="?page={{ scroller.previous_page_number }}">❮</a></li>
+	          	{% else %}
+	            	<li class="disabled"><span>❮</span></li>
+	          	{% endif %}
+			</button>
+			
+			{% for i in scroller.paginator.page_range %}
+
+				{% if scroller|DecideIsShown:i  %}
+					<button class="btn btn-white btn-square btn-just-icon btn-sm">
+						{% if scroller.number == i %}
+							<li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+						{% else %}
+							<li><a href="?page={{ i }}">{{ i }}</a></li>
+						{% endif %}
+					</button>
+				{% endif %}
+
+
+			{% endfor %}
+			
+
+			<button class="btn btn-white btn-square btn-just-icon btn-sm">
+				{% if scroller.has_next %}
+					<li><a href="?page={{ scroller.next_page_number }}">❯</a></li>
+				{% else %}
+					<li class="disabled"><span>❯</span></li>
+				{% endif %}
+			</button>
+
+			<button class="btn btn-white btn-square btn-just-icon btn-sm" >
+				
+				{% if scroller.has_next %}
+					<li><a href="?page={{ scroller.paginator.num_pages }}">&raquo;</a></li>
+				{% else %}
+					<li class="disabled"><span>&raquo;</span></li>
+				{% endif %}
+			</button>
+
+	    	</ul>
+	{% endif %}
+
+</div>
+
+{% endblock scroller %}
+

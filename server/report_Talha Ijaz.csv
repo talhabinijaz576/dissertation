@@ -1,0 +1,16 @@
+Date;Person;Room;Camera;Result;Message
+2021-08-10 17:00:52.899534+00:00;Talha Ijaz;room1;Camera 1;True;Access granted
+2021-08-10 16:58:31.883616+00:00;Talha Ijaz;room1;Camera 1;True;Access granted
+2021-08-10 16:58:30.675550+00:00;Talha Ijaz;room1;Camera 1;True;Access granted
+2021-08-10 16:58:29.667010+00:00;Talha Ijaz;room1;Camera 1;True;Access granted
+2021-08-10 16:58:28.073456+00:00;Talha Ijaz;room1;Camera 1;True;Access granted
+2021-08-10 16:58:26.323298+00:00;Talha Ijaz;room1;Camera 1;True;Access granted
+2021-08-10 16:58:24.957161+00:00;Talha Ijaz;room1;Camera 1;True;Access granted
+2021-08-10 16:58:23.995038+00:00;Talha Ijaz;room1;Camera 1;True;Access granted
+2021-08-10 16:58:03.954831+00:00;Talha Ijaz;room1;Camera 1;True;Access granted
+2021-08-10 16:56:57.932522+00:00;Talha Ijaz;room1;Camera 1;True;Access granted
+2021-08-10 16:35:43.009280+00:00;Talha Ijaz;room1;Camera 1;False;Unauthorized person access request denied
+2021-08-10 16:35:41.113245+00:00;Talha Ijaz;room1;Camera 1;False;Unauthorized person access request denied
+2021-08-10 16:35:38.995681+00:00;Talha Ijaz;room1;Camera 1;False;Unauthorized person access request denied
+2021-08-10 16:35:24.461785+00:00;Talha Ijaz;room1;Camera 1;True;Access granted
+2021-08-10 16:35:05.642443+00:00;Talha Ijaz;room1;Camera 1;True;Access granted

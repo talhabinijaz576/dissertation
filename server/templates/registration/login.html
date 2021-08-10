@@ -1,0 +1,49 @@
+{% extends 'login_base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="container">
+  <div class="row">
+
+    <div class="col-lg-4 col-md-6 col-sm-8 ml-auto mr-auto">
+      <form method="post">  {% csrf_token %}
+        <div class="card card-login card-hidden" style="border-radius: 0px;">
+
+          <div class="card-header card-header-primary text-center" style="border-radius:0px;margin-top:0px;margin: 0px 0px 0;">
+            <h4 class="card-title">Login</h4>
+          </div>
+          <div class="card-body ">
+
+            <!-- <center>
+              <label style="color:red" id="loginErrorLabel"></label>
+            </center>-->
+
+            <span class="bmd-form-group">
+              <div class="input-group" style="padding-top: 20px;">
+                <input type="text" name="username" class="form-control" placeholder="Username" autofocus="" autocapitalize="none" autocomplete="username" maxlength="50" required="" id="id_username">
+              </div>
+            </span>
+
+            <span class="bmd-form-group">
+              <div class="input-group" style="padding-top: 20px;">
+                <input type="password" class="form-control" placeholder="Password" name="password" autocomplete="current-password" required="" id="id_password">
+              </div>
+            </span>
+
+
+          </div>
+
+
+
+          <div class="card-footer justify-content-center">
+            <button type="submit" class="btn btn-primary btn-link btn-lg">Sign In</button>
+          </div>
+
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}

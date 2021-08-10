@@ -1,0 +1,133 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load custom_tags %}
+
+{% block content %}
+
+
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card" >
+        <div class="card-header card-header-primary table-div">
+          <h4 class="card-title table-title">{{title}}</h4>
+
+          <!--<p class="card-category"> Here is a subtitle for this table</p> -->
+        </div>
+          <div class="card-body">
+
+            <!--<form  method="POST" class="navbar-form" >  {% csrf_token %}
+              <div class="input-group-search-bar no-border">
+                <input type="text" value="" class="form-control" placeholder="Search...">
+                <button type="submit" class="btn btn-white btn-round btn-just-icon">
+                  <i class="material-icons">search</i>
+                  <div class="ripple-container"></div>
+                </button>
+              </div>
+            </form>-->
+
+            <div class="table-responsive" style="width:100%;">
+              <table class="table"  style="width:100%;">
+                <thead class=" text-primary">
+                  <th>Date</th>
+                  <th>Person</th>
+                  <th>Room</th>
+                  <th>Camera</th>
+                  <th hidden>Message</th>
+                  <th></th>
+                </thead>
+                <tbody id="job_tbody_id">
+                  {% for record in records %}
+                    <tr name="job_record" id="row_{{record.0.id}}">
+                      <td style="width:20%;padding: 8px 7px;">{{record.date|ProcessDateforHTML}}</td>
+                      <td style="width:12%;padding: 8px 7px;">{{record.subject|truncatechars:20}}</td>
+                      <!--<td>{{record.5}}</td>-->
+                      <td style="width:12%;padding: 8px 7px;">{{record.room|truncatechars:20}}</td>
+                      <td style="width:12%;padding: 8px 7px;">{{record.camera|truncatechars:20}}</td>
+                      <td style="width:12%;padding: 8px 7px;" hidden>{{record.message|truncatechars:20}}</td>
+                      <td style="width:12%;padding: 8px 7px;">
+                        {% if record.access_granted %}
+                          <a id="status_{{record.0.id}}" class="btn btn-primary btn-round" style="width:120px;padding:7px 12px;background-color:green;color:white">Authorized</a>
+                        {% else %}
+
+                            {% if 'nknow' in record.subject %}
+                            <a id="status_{{record.0.id}}" class="btn btn-primary btn-round" style="width:120px;padding:7px 12px;background-color:orange;color:white">Unknown</a>
+                            {% else %}
+                            <a id="status_{{record.0.id}}" class="btn btn-primary btn-round" style="width:120px;padding:7px 12px;background-color:red;color:white">Unauthorized</a>
+                            {% endif %}
+
+                        {% endif %}
+                      </td>
+                      <td class="td-actions text-right" style="width:10%;padding: 8px 7px;" hidden>
+                        <form  method="POST" >  {% csrf_token %}
+                          <input type="text" id="record_button_config_id_{{record.0.id}}" hidden>
+                          <div class="input-group no-border">
+                            <!--
+                            <button type="button" name="view_info" value="{{record.0}}" class="btn btn-link btn-sm" rel="tooltip" data-original-title="View Customer Info" onclick="ViewCustomerInfo('{{record.0}}')">
+                              <i class="material-icons">visibility</i>
+                              <div class="ripple-container"></div>
+                            </button>-->
+                            <button type="submit" name="delete_camera" value="{{record.0.id}}" class="btn btn-danger btn-link btn-sm" rel="tooltip" data-original-title="Delete Camera" onclick="DeleteRoom('{{record.0.id}}')">
+                              <i class="material-icons">close</i>
+                              <div class="ripple-container"></div>
+                            </button>
+                          </div>
+                        </form> 
+                      </td>
+                    </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+              {% block bar %}
+                    {% include 'scroller.html' %}
+              {% endblock %}
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<form method="POST" id="DeleteForm"> {% csrf_token %}
+  <input type="text" name="stop_call" id="stop_call" hidden>
+</form>
+
+
+<script>
+
+
+function OpenNewRoomModal(){
+  document.getElementById("addRoomModal").style.display = "block";
+}
+
+function CloseNewRoomModal(){
+  document.getElementById("addRoomModal").style.display = "none";
+}
+
+
+
+</script>
+
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

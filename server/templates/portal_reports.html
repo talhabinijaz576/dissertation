@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load custom_tags %}
+
+{% block content %}
+
+
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card" >
+        <div class="card-header card-header-primary table-div">
+          <h4 class="card-title table-title">Reports</h4>
+            <div class="input-group no-border">
+              <!--<button type="file" class="btn btn-white btn-round btn-just-icon" onclick="AddNewProcess()">-->
+
+
+            </div>
+          <!--<p class="card-category"> Here is a subtitle for this table</p> -->
+        </div>
+          <div class="card-body">
+
+            <form  method="POST" class="navbar-form" >  {% csrf_token %}
+              <div class="input-group-search-bar no-border">
+
+                {% if employees.count > 0 %}
+
+                  <table>
+                    <tbody>
+                      <tr>
+
+                        <td>
+                          <h3>Employee</h3>
+                        </td>
+                        
+                        <td style="padding-left: 30px;">
+                          <select name="employee_report">
+                            {% for employee in employees %}
+                            <option value="{{employee.id}}">{{employee.name}}</option>
+                            {% endfor %}
+                          </select>
+                        </td>
+                        
+                        <td style="padding-left: 30px;">
+                          <button class="btn btn-primary btn-block">Download Report</button>
+                        </td>
+                      
+                      </tr>
+                    </tbody>
+                  </table>
+
+                  
+     
+
+                
+                {% else %}
+                <h3>No employees found to run reports</h3>
+                {% endif %}
+              </div>
+            </form>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<form method="POST" id="DeleteForm"> {% csrf_token %}
+  <input type="text" name="stop_call" id="stop_call" hidden>
+</form>
+
+
+<script>
+
+
+function OpenNewRoomModal(){
+  document.getElementById("addRoomModal").style.display = "block";
+}
+
+function CloseNewRoomModal(){
+  document.getElementById("addRoomModal").style.display = "none";
+}
+
+
+
+</script>
+
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

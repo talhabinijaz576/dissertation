@@ -1,0 +1,209 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load custom_tags %}
+
+{% block content %}
+
+
+{% if show_logs != None %}
+  <div class="modal" id="showTranscriptModal" style="display: block">
+{% else %}
+  <div class="modal" id="showTranscriptModal">
+{% endif%}
+  <div class="modal-dialog modal-lg" role="document" style="max-width: 750px;">
+    <div class="modal-content">
+
+      <div class="modal-header" style="padding-bottom: 0px;">
+        <div class="table-div">
+          <h3 class="modal-title" style="padding-left: 10px;padding-right: 650px;">Transcript</h3>
+          <div style="padding-top: 0px; padding-bottom: 0px;">
+            <form  method="POST" class="process-records-form" style="margin-bottom: 0px;">  {% csrf_token %}
+              <button type="button" name="job_view" value="{{job_id}}" class="btn btn-link btn-just-icon" id="show_logs_refresh_button" style="margin-left: -150px;" onclick="">
+                  <i class="material-icons">sync</i>
+                  <div class="ripple-container"></div>
+              </button>
+            </form> 
+          </div>
+        </div>
+        <!--<h3 class="modal-title">Job Name: {{job_name}}</h4>-->
+        <span class="close " data-dismiss="modal" id="showTranscriptClose"  style="margin-left: -155px;">&times;</span>
+      </div>
+
+      <div class="modal-body">
+        <div id="showTranscriptModalBody" style="padding-left: 18px;">
+          
+          {% for log in logs %}
+            {{log.0}} &nbsp; &nbsp;
+            {% if log.1 == 'ERROR' %}
+              <b style="color:red">{{log.2}}</b>
+            {% else %}
+              <b>{{log.2}}</b>
+            {% endif %}
+            <br/>
+          {% endfor %}
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+{% if show_job_modal %}
+  <div class="modal" id="startDialerModal" style="display: block;">
+{% else %}
+  <div class="modal" id="startDialerModal">
+{% endif %}
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <input type="text" id="all_processes_str" value="{{processes_str}}" hidden>
+      <form method="POST" enctype="multipart/form-data" id="newFileUploadForm"> {% csrf_token %}
+        <!-- Modal Header -->
+        <input type="text" name="contacts_file_upload" value="" hidden>
+        <div class="modal-header">
+          <h3 class="modal-title">Start Autodialer</h3>
+          <span class="close " data-dismiss="modal" id="startDialerClose">&times;</span>
+        </div>
+
+        <div class="modal-body">
+
+          
+
+          &nbsp;&nbsp;&nbsp;&nbsp;<input type="file" name="file" id="process_file"> 
+          
+          <div class="col-md-6" style="padding-top: 10px; display: block;" >
+            <div class="form-group bmd-form-group is-filled">
+              <label class="bmd-label-floating">Maximum Concurrent Calls</label>
+              <input type="number" class="form-control" name="max_concurrent_calls" maxlength="40">
+            </div>
+          </div>
+
+        </div>
+
+        <div class="modal-footer">
+          <button type="submit" name="contacts_file_upload" class="btn btn-outline-success">Add</button>
+        </div>
+      </form>
+    
+    </div>
+  </div>      
+</div>
+
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card" >
+        <div class="card-header card-header-primary table-div">
+          <h4 class="card-title table-title">Calls</h4>
+            <div class="input-group no-border">
+              <!--<button type="file" class="btn btn-white btn-round btn-just-icon" onclick="AddNewProcess()">-->
+
+
+              <button type="submit" id="startDialerTrigger" class="btn btn-white btn-round btn-just-icon btn-table">
+                  <i class="material-icons">add</i>
+                  <div class="ripple-container"></div>
+              </button>
+
+            </div>
+          <!--<p class="card-category"> Here is a subtitle for this table</p> -->
+        </div>
+          <div class="card-body">
+
+            <!--<form  method="POST" class="navbar-form" >  {% csrf_token %}
+              <div class="input-group-search-bar no-border">
+                <input type="text" value="" class="form-control" placeholder="Search...">
+                <button type="submit" class="btn btn-white btn-round btn-just-icon">
+                  <i class="material-icons">search</i>
+                  <div class="ripple-container"></div>
+                </button>
+              </div>
+            </form>-->
+
+            <div class="table-responsive" style="width:100%;">
+              <table class="table"  style="width:100%;">
+                <thead class=" text-primary">
+                  <th style="width:12%; ">Customer Name</th>
+                  <th style="width:12%;">Phone Number</th>
+                  <!--<th>Environment</th>-->
+                  <th style="width:18%;">Time Started</th>
+                  <th style="width:18%;">Time Ended</th>
+                  <th style="width:8%;">Status</th>
+                  <th style="width:10%;"></th>
+                </thead>
+                <tbody id="job_tbody_id">
+                  {% for record in records %}
+                    <tr name="job_record" id="row_{{record.0}}">
+                      <td style="width:10%;padding: 8px 7px;">{{record.1|truncatechars:17}}</td>
+                      <td style="width:8%;padding: 8px 7px;">{{record.2|truncatechars:13}}</td>
+                      <!--<td>{{record.5}}</td>-->
+                      <td id="date_started_{{record.0}}" style="width:18%;padding: 8px 7px;">{{record.3|ProcessDateforHTML}}</td>
+                      <td id="date_ended_{{record.0}}" style="width:18%;padding: 8px 7px;">{{record.4|ProcessDateforHTML}}</td>
+                      <td style="width:8%;padding: 8px 7px;">
+                        <a id="job_status_{{record.0}}" class="btn btn-primary btn-round" style="width:120px;padding:7px 12px;background-color:{{record.6}};color:white">{{record.5}}</a>
+                      </td>
+                      <td class="td-actions text-right" style="width:10%;padding: 8px 7px;">
+                        <form  method="POST" class="process-records-form" id="record_form_{{record.0}}" >  {% csrf_token %}
+                          <input type="text" id="record_button_config_id_{{record.0}}" hidden>
+                          <div class="input-group no-border">
+                            <button type="button" name="view_info" value="{{record.0}}" class="btn btn-link btn-sm" rel="tooltip" data-original-title="View Customer Info" onclick="ViewCustomerInfo('{{record.0}}')">
+                              <i class="material-icons">visibility</i>
+                              <div class="ripple-container"></div>
+                            </button>
+                            <button type="button" name="view_transcript" value="{{record.0}}" class="btn btn-link btn-sm" rel="tooltip" data-original-title="View Call Transcript" onclick="GetCallTranscript('{{record.0}}')">
+                              <i class="material-icons">view_list</i>
+                              <div class="ripple-container"></div>
+                            </button>
+                            <button type="button" name="stop_call" value="{{record.0}}" class="btn btn-danger btn-link btn-sm" rel="tooltip" data-original-title="Stop Call" onclick="StopCall('{{record.0}}')">
+                              <i class="material-icons">close</i>
+                              <div class="ripple-container"></div>
+                            </button>
+                          </div>
+                        </form> 
+                      </td>
+                    </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+              {% block bar %}
+                    {% include 'scroller.html' %}
+              {% endblock %}
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<form method="POST" id="DeleteForm"> {% csrf_token %}
+  <input type="text" name="stop_call" id="stop_call" hidden>
+</form>
+
+
+<script>
+
+
+</script>
+
+<script src="{% static 'js/dialer/dialer.js' %}?rand={{RAND}}"></script>
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

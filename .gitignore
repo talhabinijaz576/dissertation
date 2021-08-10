@@ -1,0 +1,14 @@
+experiments/.ipynb_checkpoints
+experiments/__pycache__
+experiments/_facenet_pytorch
+experiments/_openface
+experiments/embeddings
+experiments/haarcascades
+experiments/models
+experiments/results
+experiments/shape_predictors
+experiments/ssd
+experiments/yolo3
+rpi_app/__pycache__
+rpi_app/models
+rpi_app/shape_predictors

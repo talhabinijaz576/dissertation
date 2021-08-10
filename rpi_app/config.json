@@ -1,0 +1,5 @@
+{
+    "url" : "http://127.0.0.1:8000/app/{}",
+    "websocket_url" : "ws://127.0.0.1:8000/ws/app?device_number={}",
+    "device_token_file" : "token.txt",
+}
